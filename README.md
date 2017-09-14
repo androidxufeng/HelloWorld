@@ -37,4 +37,40 @@ adapter.notifyItemRangeRemoved(position, count);
 adapter.notifyItemMoved(fromPosition, toPosition);
 adapter.notifyItemRangeChanged(position, count, payload)
 ```
- 
+
+# Listview的实现方式
+
+* 1. 自定义AnimationListView，见附件，代码中TODO的地方需要大家自己适配，动画和上次进入批量一致,具体可以在文件中查看
+* 2. 将布局文件中需要有动画的listview改为使用AnimationListView控件
+* 3. 批量删除后更新界面不用notifyDataSetChanged，改用如下方式
+```java
+mListView.manipulate(new AnimationListView.Manipulator<RecordAdatper>() {
+                    @Override
+                    public void manipulate(RecordAdatper adapter) {
+                        //更新数据即可
+                        mAdatper.setDatas(mDatas);
+                    }
+                });
+	 // 然后设置selectionMode为fasle
+ ```
+ * 4.在adapter中重写getItemId()方法，保证每个id唯一
+ ```java
+	@Override
+	public long getItemId(int position) {
+            return mDatas.get(position).hashCode();
+        }
+  ```
+  * 5. 防止复用出现alpha=0 看不见条目，在getView()中加入透明度设置：
+  ```java
+  if (convertView == null) {
+            convertView = View.inflate(mContext, R.layout.item_song, null);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+			// 设置alpha为1 
+            if (convertView.getAlpha() == 0){
+                convertView.setAlpha(1);
+            }
+            holder = (ViewHolder) convertView.getTag();
+        }
+```
