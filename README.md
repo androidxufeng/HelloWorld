@@ -53,7 +53,7 @@ mListView.manipulate(new AnimationListView.Manipulator<RecordAdatper>() {
                 });
 	 // 然后设置selectionMode为fasle
  ```
- * 4.在adapter中重写getItemId()方法，保证每个id唯一
+ * 4. 在adapter中重写getItemId()方法，保证每个id唯一
  ```java
 	@Override
 	public long getItemId(int position) {
@@ -73,4 +73,4 @@ mListView.manipulate(new AnimationListView.Manipulator<RecordAdatper>() {
             }
             holder = (ViewHolder) convertView.getTag();
         }
-```
+   ```
