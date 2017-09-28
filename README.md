@@ -73,4 +73,41 @@ mListView.manipulate(new AnimationListView.Manipulator<RecordAdatper>() {
             }
             holder = (ViewHolder) convertView.getTag();
         }
-   ```
+   ```
+# v2.0更新：
+修复删除前不可见条目在删除后可见，出现的动画平移距离计算有误的问题：
+在AnimationListView.java文件中修改animatePostLayout()方法：
+```java
+private void animatePostLayout() {
+
+      	//...略
+            if (mYMap.containsKey(id)) {
+                // moved within visible area
+                final float oldY = mYMap.remove(id);
+                final float newY = ViewCompat.getY(child);
+                anim = animateY(child, oldY, newY);
+
+            } else {
+                // moved into visible area or new
+
+                if (mBeforeVisible.contains(id)) {
+                    // moved from top
+                    final float newY = ViewCompat.getY(child);
+                    final float oldY = -childHeight - beforPosition * childHeight;
+                    beforPosition++;
+                    anim = animateY(child, oldY, newY);
+                } else if (mAfterVisible.contains(id)) {
+                    // moved from bottom
+                    final float newY = ViewCompat.getY(child);
+                    final float oldY = getHeight() + afterPosition * childHeight;
+                    afterPosition++;
+                    anim = animateY(child, oldY, newY);
+                } else {
+                    anim = ObjectAnimator.ofFloat(child, "alpha", 1f, 1f);
+                    anim.setDuration(TRANSLATE_ANIM_DURATION);
+                }
+
+            }
+		//...略
+
+        }
