@@ -73,8 +73,9 @@ mListView.manipulate(new AnimationListView.Manipulator<RecordAdatper>() {
             }
             holder = (ViewHolder) convertView.getTag();
         }
-   ```
-# v2.0更新：
+```
+
+## V2.0修改：
 修复删除前不可见条目在删除后可见，出现的动画平移距离计算有误的问题：
 在AnimationListView.java文件中修改animatePostLayout()方法：
 ```java
