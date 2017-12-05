@@ -52,5 +52,11 @@ static class MyHandler extends Handler {
 }
 
 private MyHandler mHandler = new MyHander(this);
+
+	Integer num = 0;
+        for (int i = 0; i < 100; i++) {
+            num += i;
+        }
+
 ```
 
