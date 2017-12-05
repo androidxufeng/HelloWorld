@@ -57,6 +57,16 @@ private MyHandler mHandler = new MyHander(this);
         for (int i = 0; i < 100; i++) {
             num += i;
         }
-
+	BitmapFactory.Options options = new BitmapFactory.Options();
+        // 仅仅解析图片的宽高
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(is, null, options);
+        options.inScaled = true;
+        options.inSampleSize = 2;
+        //表示将要画出来的图片dp值
+        options.inTargetDensity = dstWidth * options.inSampleSize;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inJustDecodeBounds = false;
+        BitmapFactory.decodeStream(is, null, options);
 ```
 
