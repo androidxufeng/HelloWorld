@@ -42,5 +42,15 @@
 	10、资源文件需要选择合适的文件夹进行存放
 	我们知道hdpi/xhdpi/xxhdpi等等不同dpi的文件夹下的图片在不同的设备上会经过scale的处理。例如我们只在hdpi的目录下放置了一张100100的图片，那么根据换算关系，xxhdpi的手机去引用那张图片就会被拉伸到200200。需要注意到在这种情况下，内存占用是会显著提高的。对于不希望被拉伸的图片，需要放到assets或者nodpi的目录下
 	11、优化布局层次，减少内存消耗越扁平化的视图布局，占用的内存就越少，效率越高。我们需要尽量保证布局足够扁平化，当使用系统提供的View无法实现足够扁平的时候考虑使用自定义View来达到目的
+```java
+static class MyHandler extends Handler {
+    WeakReference<Activity> mActivityReference;
 
+    MyHandler(Activity activity) {
+        mActivityReference= new WeakReference<Activity>(activity);
+    }
+}
+
+private MyHandler mHandler = new MyHander(this);
+```
 
