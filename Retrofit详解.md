@@ -1,6 +1,8 @@
 ## [Retrofit](https://github.com/square/retrofit)
 [Retrofit优秀教程1](https://www.jianshu.com/p/308f3c54abdd "怪盗kidou")
 
+[Retrofit源码分析](https://www.jianshu.com/p/0c055ad46b6c)
+
 ### 1.注解类型
 ![Retrofit注解](https://upload-images.jianshu.io/upload_images/944365-ee747d1e331ed5a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
